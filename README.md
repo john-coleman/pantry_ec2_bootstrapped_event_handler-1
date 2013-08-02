@@ -1,4 +1,2 @@
-pantry_ec2_bootstrapped_event_handler
-=====================================
-
-pantry woop woop
+pantry_ec2_boot_command_handler
+===============================
