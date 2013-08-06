@@ -14,7 +14,8 @@ module Daemons
     def handle_message(message)
       url = @config["pantry"]["url"]
       msg_json = JSON.parse(message["Message"])
-      request_id = msg_json['request_id']
+      puts msg_json
+      request_id = msg_json['pantry_request_id']
       request_url = "#{url}/aws/ec2_instances/#{request_id}"
       update = ({:bootstrapped => true}).to_json
       puts "#{update}"
