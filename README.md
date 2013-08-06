@@ -1,2 +1,2 @@
-pantry_ec2_boot_command_handler
+pantry_ec2_bootstrapped_event_handler
 ===============================
