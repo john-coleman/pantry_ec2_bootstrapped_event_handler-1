@@ -1,7 +1,7 @@
+require 'spec_support/shared_daemons'
 require 'rspec/fire'
-
-AWS.config :access_key_id=>"test", :secret_access_key=>"test"
-AWS.stub!
+require 'logger'
+require 'webmock'
 
 RSpec.configure do |config|
   config.include(RSpec::Fire)

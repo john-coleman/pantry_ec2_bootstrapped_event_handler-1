@@ -1,35 +1,30 @@
-require 'aws-sdk'
-require 'yaml'
-require 'json'
 require 'timeout'
+require 'json'
 require 'rest_client'
 
-module Daemons
-  class EC2BootstrappedEventHandler
+module Wonga
+  module Daemon
+    class EC2BootstrappedEventHandler
+      def initialize(api_client, logger)
+        @api_client = api_client
+        @logger = logger
+      end
 
-    def initialize(config)
-      @config = config
+      def handle_message(message)
+        @api_client.update_ec2_instance(message['pantry_request_id'], {:bootstrapped => true})
+      end
     end
 
-    def handle_message(message)
-      url = @config["pantry"]["url"]
-      msg_json = JSON.parse(message["Message"])
-      puts msg_json
-      request_id = msg_json['pantry_request_id']
-      request_url = "#{url}/aws/ec2_instances/#{request_id}"
-      update = ({:bootstrapped => true}).to_json
-      puts "#{update}"
-      puts request_url
-      Timeout::timeout(@config['pantry']['timeout']){
-        RestClient.put(
-          request_url, 
-          update, 
-          {
-            :content_type => :json, 
-            :'x-auth-token' => @config['pantry']['api_key']
-          }
-        )
-      }
+    class PantryApiClient
+      def initialize(url, api_key, logger, timeout = 300)
+        @resource = RestClient::Resource.new(url, timeout: timeout, headers: { :accept => :json, :content_type => :json, :'x-auth-token' => api_key })
+        RestClient.log = logger
+      end
+
+      def update_ec2_instance(request_id, params)
+        params = params.to_json if params.is_a? Hash
+        @resource["/aws/ec2_instances/#{request_id}"].put params
+      end
     end
   end
 end
