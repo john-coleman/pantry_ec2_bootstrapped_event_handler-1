@@ -1,3 +1,13 @@
+unless ENV["SKIP_COV"]
+  require 'simplecov'
+  require 'simplecov-rcov'
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::RcovFormatter
+  ]
+  SimpleCov.start
+end
+
 require 'spec_support/shared_daemons'
 require 'rspec/fire'
 require 'logger'
