@@ -1,8 +1,3 @@
-require 'spec_support/shared_daemons'
-require 'rspec/fire'
-require 'logger'
-require 'webmock'
-
 unless ENV["SKIP_COV"]
   require 'simplecov'
   require 'simplecov-rcov'
@@ -12,6 +7,11 @@ unless ENV["SKIP_COV"]
   ]
   SimpleCov.start
 end
+
+require 'spec_support/shared_daemons'
+require 'rspec/fire'
+require 'logger'
+require 'webmock'
 
 RSpec.configure do |config|
   config.include(RSpec::Fire)
