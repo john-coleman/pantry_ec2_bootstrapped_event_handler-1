@@ -3,6 +3,16 @@ require 'rspec/fire'
 require 'logger'
 require 'webmock'
 
+unless ENV["SKIP_COV"]
+  require 'simplecov'
+  require 'simplecov-rcov'
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::RcovFormatter
+  ]
+  SimpleCov.start
+end
+
 RSpec.configure do |config|
   config.include(RSpec::Fire)
 
