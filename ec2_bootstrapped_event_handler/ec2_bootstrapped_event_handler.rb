@@ -7,7 +7,7 @@ module Wonga
       end
 
       def handle_message(message)
-        @api_client.update_ec2_instance(message['pantry_request_id'], {:bootstrapped => true})
+        @api_client.send_put_request("/api/ec2_instances/#{message["pantry_request_id"]}", { bootstrapped: true})
       end
     end
   end
