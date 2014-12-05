@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'pantry_daemon_common', git: 'git@github.com:wongatech/pantry_daemon_common.git', tag: 'v0.2.3'
+gem 'pantry_daemon_common', git: 'git@github.com:wongatech/pantry_daemon_common.git'
 
 group :development do
   gem 'guard-rspec'
@@ -9,7 +9,6 @@ end
 
 group :test, :development do
   gem 'webmock'
-  gem 'em-winrm', git: 'https://github.com/besol/em-winrm.git'
   gem 'simplecov', require: false
   gem 'simplecov-rcov', require: false
   gem 'rspec-fire'

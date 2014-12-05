@@ -9,8 +9,7 @@ module Wonga
       def handle_message(message)
         message[:event] = :bootstrap
         message[:bootstrapped] = true
-        @api_client.send_put_request("/api/ec2_instances/#{message["pantry_request_id"]}", message)
-        @logger.info "Updating bootstrap status for Request:#{message["pantry_request_id"]} (#{message["name"]}succeeded"
+        @api_client.send_put_request("/api/ec2_instances/#{message['pantry_request_id']}", message)
       end
     end
   end
